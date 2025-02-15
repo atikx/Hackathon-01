@@ -6,7 +6,6 @@ import Sidebar from "../components/Sidebar.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Sidebar />
     <App />
   </StrictMode>
 );
