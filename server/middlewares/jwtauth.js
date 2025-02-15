@@ -7,7 +7,8 @@ dotenv.config();
 
 const authenticateToken = (req, res, next) => {
   const token = req.cookies["token"];
-  if (token == null) return res.status(401).send("Please Login First");
+  if (token == null || !token)
+    return res.status(401).send("Please Login First");
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
