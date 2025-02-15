@@ -1,6 +1,4 @@
 function App() {
-  return (
-    <div className="bg-black">App</div>
-  )
+  return <div className="bg-black"></div>;
 }
-export default App
+export default App;

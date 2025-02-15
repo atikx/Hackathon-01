@@ -7,12 +7,13 @@ import {
   HelpingHand,
   MessageCircle,
   LogOut,
+  MessageSquare,
 } from "lucide-react";
- 
+
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [profileDropdown, setProfileDropdown] = useState(false);
- 
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -27,7 +28,7 @@ export default function Sidebar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
- 
+
   useEffect(() => {
     const handleResize = () => {
       setIsOpen(window.innerWidth >= 768);
@@ -35,7 +36,16 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
- 
+
+  const previousChats = [
+    { id: 1, title: "Chat on 9th Feb 2025" },
+    { id: 2, title: "Chat on 12th Feb 2025" },
+  ];
+
+  const handleChatClick = (chatId) => {
+    console.log(`Opening chat ${chatId}`);
+  };
+
   return (
     <div className="flex h-screen bg-gray-100 relative overflow-hidden">
       {/* Sidebar */}
@@ -62,21 +72,38 @@ export default function Sidebar() {
             <Menu size={24} />
           </button>
         </div>
- 
+
         {isOpen && (
-          <div className="p-4 space-y-4 overflow-auto flex-1">
+          <div className="p-4 space-y-4 flex-1">
             <button
-              className="
-              flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-bold rounded-lg cursor-pointer
-              bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500
-            "
+              className="flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-bold rounded-lg cursor-pointer
+              bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500"
             >
               <MessageCircle size={20} />
               <span>Talk to Someone</span>
             </button>
+
+            {/* Previous Chats Section */}
+            <div className="mt-4">
+              <h2 className="text-gray-400 text-sm uppercase font-semibold tracking-wide">
+                Previous Chats
+              </h2>
+              <ul className="mt-2 space-y-2">
+                {previousChats.map((chat) => (
+                  <li
+                    key={chat.id}
+                    className="flex items-center gap-x-2 px-4 py-2 text-white bg-zinc-800 rounded-lg cursor-pointer transition duration-200 hover:bg-zinc-700"
+                    onClick={() => handleChatClick(chat.id)}
+                  >
+                    <MessageSquare size={18} className="text-orange-400" />
+                    <span className="text-sm">{chat.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
- 
+
         {/* Bottom Icons */}
         <div className="border-t border-gray-400 w-[90%] mx-auto rounded-full"></div>
         <div className="p-4 flex flex-col space-y-4 mt-auto">
@@ -84,17 +111,13 @@ export default function Sidebar() {
             <Settings className="text-orange-400" size={20} />
             {isOpen && <span>Settings</span>}
           </button>
-          <button
-            className="
-            text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in
-          "
-          >
+          <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in">
             <LogOut className="text-orange-400" size={20} />
             {isOpen && <span>Log Out</span>}
           </button>
         </div>
       </div>
- 
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col relative z-10 pr-4 bg-zinc-900 pb-4">
         {/* Navbar */}
@@ -105,6 +128,8 @@ export default function Sidebar() {
           >
             <Menu size={24} />
           </button>
+
+          {/* Profile Dropdown */}
           <div className="relative ml-auto">
             <button
               className="p-2 border-orange-400 border-2 rounded-full hover:bg-orange-100 transition duration-200 cursor-pointer profile-button"
@@ -112,25 +137,42 @@ export default function Sidebar() {
             >
               <User size={24} className="text-orange-400" />
             </button>
+
             {profileDropdown && (
-              <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg dropdown-menu">
+              <div className="absolute right-0 mt-2 w-56 bg-white border rounded-lg shadow-xl dropdown-menu">
+                {/* Profile Section */}
+                <div className="p-4 flex items-center space-x-3 border-b bg-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-orange-400 flex items-center justify-center">
+                    <User className="text-white w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">
+                      John Doe
+                    </p>
+                    <p className="text-xs text-gray-500">johndoe@example.com</p>
+                  </div>
+                </div>
+
+                {/* Dropdown Items */}
                 <ul className="py-2">
-                  <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    Settings
+                  <li className="px-4 py-2 flex items-center space-x-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition">
+                    <Settings size={18} className="text-orange-400" />
+                    <span>Settings</span>
                   </li>
-                  <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    Logout
+                  <li className="px-4 py-2 flex items-center space-x-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition">
+                    <LogOut size={18} className="text-orange-400" />
+                    <span>Logout</span>
                   </li>
                 </ul>
               </div>
             )}
           </div>
         </header>
- 
+
         {/* Content Area */}
-        <main className="flex-1 p-4 overflow-auto bg-white border-zinc-900 border-2 rounded-2xl"></main>
+        <main className="flex-1 p-4 overflow-hidden bg-white border-zinc-900 border-2 rounded-2xl"></main>
       </div>
- 
+
       {/* Right and Bottom Coating */}
       <div className="absolute bottom-0 right-0 w-full h-full bg-zinc-900 rounded-br-2xl rounded-tr-none rounded-tl-none pointer-events-none"></div>
     </div>
