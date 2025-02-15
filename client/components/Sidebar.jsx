@@ -9,7 +9,7 @@ import {
   LogOut,
   MessageSquare,
 } from "lucide-react";
-import Chat from "./ Chat";
+import Chat from "./Chat";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);

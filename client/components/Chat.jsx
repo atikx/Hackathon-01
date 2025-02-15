@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Send, Smile, Heart, Brain, CloudRain } from "lucide-react";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [inputHeight, setInputHeight] = useState("auto");
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
   const handleInputChange = (e) => {
     setMessage(e.target.value);
@@ -15,7 +21,10 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-screen w-full bg-gray-50">
       {/* Top Bar */}
-      <div className="w-full bg-white p-4 border-b shadow-md flex flex-col md:flex-row md:items-center justify-between px-6">
+      <div
+        className="w-full bg-white p-4 border-b shadow-md flex flex-col md:flex-row md:items-center justify-between px-6"
+        data-aos="fade-down"
+      >
         <div className="text-gray-700 font-semibold text-lg">
           Chat Conducted on{" "}
           {new Date().toLocaleDateString("en-US", {
@@ -33,15 +42,19 @@ const Chat = () => {
       {/* Chat Area */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-4xl text-center space-y-2">
-          <h2 className="text-5xl font-bold text-gray-800 font-rubik">
+          <h2 className="text-5xl font-bold text-gray-800 font-rubik" data-aos="fade-up">
             Let's Talk.
           </h2>
-          <p className="text-gray-600 mb-8 font-light text-lg font-rubik">
+          <p
+            className="text-gray-600 mb-8 font-light text-lg font-rubik"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             We're here to listen. Share your thoughts and feelings.
           </p>
 
           {/* Quick Chat Buttons */}
-          <div className="flex justify-center gap-4 mb-6">
+          <div className="flex justify-center gap-4 mb-6" data-aos="zoom-in">
             <button
               className="flex items-center gap-2 px-4 py-2 border rounded-lg shadow-sm hover:bg-gray-100 transition cursor-pointer"
               style={{ color: "#ff7f50" }}
@@ -69,7 +82,7 @@ const Chat = () => {
           </div>
 
           {/* Chat Input */}
-          <div className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
+          <div className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
             <textarea
               className="flex-1 p-4 text-lg outline-none resize-none"
               style={{ height: inputHeight, minHeight: "50px" }}
