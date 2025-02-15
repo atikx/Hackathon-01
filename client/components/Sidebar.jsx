@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import {
   Menu,
   X,
-  MessageSquare,
-  Home,
   Settings,
   User,
   HelpingHand,
-  Plus,
-  ChevronRight,
+  MessageCircle,
+  LogOut,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -42,17 +40,19 @@ export default function Sidebar() {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-white shadow-md md:relative flex flex-col z-50 ${
+        className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 ${
           isOpen
             ? "w-64 translate-x-0"
             : "w-12 -translate-x-full md:translate-x-0"
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b h-16">
+        <div className="flex items-center justify-between p-4 h-16">
           {isOpen && (
             <div className="flex items-center space-x-2">
-              <HelpingHand className="text-zinc-900 w-8 h-8" />
-              <h1 className="text-lg font-semibold">Serenify</h1>
+              <HelpingHand className="text-orange-400 w-8 h-8" />
+              <h1 className="text-lg text-white font-semibold">
+                Serenify: Support
+              </h1>
             </div>
           )}
           <button
@@ -65,26 +65,39 @@ export default function Sidebar() {
 
         {isOpen && (
           <div className="p-4 space-y-4 overflow-auto flex-1">
-            <button className="w-full flex items-center space-x-2 bg-black text-white p-2 rounded-lg hover:bg-gray-800 transition duration-200 cursor-pointer">
-              <Plus size={20} />
-              <span>Start a New Chat</span>
+            <button
+              className="
+              flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-bold rounded-lg cursor-pointer
+              bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500
+            "
+            >
+              <MessageCircle size={20} />
+              <span>Talk to Someone</span>
             </button>
           </div>
         )}
 
         {/* Bottom Icons */}
-        <div className="p-4 border-t flex flex-col space-y-4 mt-auto">
-          <button className="text-gray-700 hover:text-blue-500 flex items-center space-x-2 cursor-pointer">
-            <Home size={20} />
-            {isOpen && <span>Home</span>}
-          </button>
-          <button className="text-gray-700 hover:text-blue-500 flex items-center space-x-2 cursor-pointer">
-            <MessageSquare size={20} />
-            {isOpen && <span>Chat</span>}
-          </button>
-          <button className="text-gray-700 hover:text-blue-500 flex items-center space-x-2 cursor-pointer">
-            <Settings size={20} />
+        {/* Creating a Line with 80% width */}
+        <div className="border-t border-gray-400 w-[90%] mx-auto rounded-full"></div>
+        {/* Bottom Icons */}
+        <div className="p-4 flex flex-col space-y-4 mt-auto">
+          <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in">
+            <Settings className="text-orange-400" size={20} />
             {isOpen && <span>Settings</span>}
+          </button>
+          <button
+            className="
+            text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in
+          "
+          >
+            <LogOut
+              className="
+              text-orange-400
+            "
+              size={20}
+            />
+            {isOpen && <span>Log Out</span>}
           </button>
         </div>
       </div>
@@ -92,7 +105,7 @@ export default function Sidebar() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
-        <header className="flex items-center justify-between p-4 bg-white shadow-md h-16 border-b">
+        <header className="flex items-center justify-between p-4 bg-zinc-900 h-16">
           <button
             className="text-gray-600 hover:text-gray-500 md:hidden"
             onClick={() => setIsOpen(!isOpen)}
@@ -101,13 +114,13 @@ export default function Sidebar() {
           </button>
           <div className="relative ml-auto">
             <button
-              className="p-2 border rounded-full hover:bg-gray-200 transition duration-200 cursor-pointer profile-button"
+              className="p-2 border-orange-400 border-2 rounded-full hover:bg-orange-100 transition duration-200 cursor-pointer profile-button"
               onClick={() => setProfileDropdown(!profileDropdown)}
             >
-              <User size={24} className="text-gray-700" />
+              <User size={24} className="text-orange-400" />
             </button>
             {profileDropdown && (
-              <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg dropdown-menu">
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg dropdown-menu">
                 <ul className="py-2">
                   <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
                     Settings
