@@ -1,19 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import landingImage from "../assets/img/Group 48.svg";
 
 function Landing() {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white pr-14 pl-14">
       {/* Header Section */}
       <header className="flex justify-between items-center p-6 bg-white">
         <h1 className="text-2xl font-bold text-orange-500 font-kreon">MindBridge</h1>
         <div className="flex space-x-2 sm:space-x-4 sm:flex-row flex-col space-y-2 sm:space-y-0">
-          <button className="w-24 px-3 py-1 sm:w-32 sm:px-4 sm:py-2 text-gray-800 border border-gray-300 rounded-lg text-sm sm:text-base 
-            bg-white hover:bg-gray-900 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md">
+          <button 
+            onClick={() => navigate("/login")} 
+            className="w-24 px-3 py-1 sm:w-32 sm:px-4 sm:py-2 bg-orange-500 text-white rounded-lg text-sm sm:text-base 
+              hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md">
             Login
-          </button>
-          <button className="w-24 px-3 py-1 sm:w-32 sm:px-4 sm:py-2 bg-orange-500 text-white rounded-lg text-sm sm:text-base 
-            hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md">
-            Sign Up
           </button>
         </div>
       </header>
@@ -26,10 +27,12 @@ function Landing() {
             Your <span className="text-orange-500">AI</span> Companion for Mental Well-being.
           </h1>
           <p className="text-gray-600 mt-4">
-          Chat with our friendly AI-powered assistant anytime, anywhere. Get emotional support, self-care tips, and mental health resources—all in a safe and judgment-free space.
+            Chat with our friendly AI-powered assistant anytime, anywhere. Get emotional support, self-care tips, and mental health resources—all in a safe and judgment-free space.
           </p>
-          <button className="mt-6 w-28 px-4 py-2 sm:w-40 sm:px-6 sm:py-3 border-2 border-orange-500 text-orange-500 rounded-lg 
-            hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md">
+          <button 
+            onClick={() => navigate("/chat")} 
+            className="mt-6 w-28 px-4 py-2 sm:w-40 sm:px-6 sm:py-3 border-2 border-orange-500 text-orange-500 rounded-lg 
+              hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md">
             Chat Now!
           </button>
         </div>
