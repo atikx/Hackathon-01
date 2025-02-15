@@ -60,8 +60,8 @@ export default function Sidebar() {
           {isOpen && (
             <div className="flex items-center space-x-2">
               <HelpingHand className="text-orange-400 w-8 h-8" />
-              <h1 className="text-lg text-white font-semibold">
-                Serenify: Support
+              <h1 className="text-2xl text-white font-kreon tracking-wide font-bold">
+                MindBridge
               </h1>
             </div>
           )}
@@ -76,16 +76,16 @@ export default function Sidebar() {
         {isOpen && (
           <div className="p-4 space-y-4 flex-1">
             <button
-              className="flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-bold rounded-lg cursor-pointer
+              className="flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-semibold rounded-lg cursor-pointer
               bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500"
             >
               <MessageCircle size={20} />
-              <span>Talk to Someone</span>
+              <span>Start a Chat</span>
             </button>
 
             {/* Previous Chats Section */}
             <div className="mt-4">
-              <h2 className="text-gray-400 text-sm uppercase font-semibold tracking-wide">
+              <h2 className="text-gray-400 text-sm uppercase font-semibold tracking-widest">
                 Previous Chats
               </h2>
               <ul className="mt-2 space-y-2">

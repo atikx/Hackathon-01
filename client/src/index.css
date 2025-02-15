@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.font-kreon {
+    font-family: 'Kreon', sans-serif;
+}
+  
+.font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
