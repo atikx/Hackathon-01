@@ -1,0 +1,61 @@
+{
+    "username": "john_doe",
+    "name": "John Doe",
+    "password": "hashedpassword123",
+    "chats": [
+      {
+        "title": "Anxiety Support",
+        "messages": [
+          {
+            "que": "Why do I feel anxious all the time?",
+            "ans": "Anxiety can stem from various factors like stress, lifestyle, or past experiences. Practicing mindfulness and deep breathing may help."
+          },
+          {
+            "que": "Can anxiety be completely cured?",
+            "ans": "While anxiety may not always be completely cured, it can be effectively managed with therapy, lifestyle changes, and medication if necessary."
+          },
+          {
+            "que": "What are some quick ways to reduce anxiety?",
+            "ans": "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses."
+          }
+        ],
+        "started": "2025-02-15T00:00:00Z"
+      },
+      {
+        "title": "Coping with Work Stress",
+        "messages": [
+          {
+            "que": "How do I manage stress at work?",
+            "ans": "Take regular breaks, prioritize tasks, and practice stress management techniques like meditation or deep breathing."
+          },
+          {
+            "que": "How can I stay productive without feeling overwhelmed?",
+            "ans": "Break tasks into smaller steps, set realistic deadlines, and practice time management strategies."
+          },
+          {
+            "que": "What if my boss is causing me stress?",
+            "ans": "Try open communication about your concerns. If necessary, seek HR support or set clear work boundaries."
+          }
+        ],
+        "started": "2025-02-16T00:00:00Z"
+      },
+      {
+        "title": "Relationship Struggles",
+        "messages": [
+          {
+            "que": "How do I handle conflicts in my relationship?",
+            "ans": "Effective communication and active listening are key. Try to understand each other's perspectives and find a solution together."
+          },
+          {
+            "que": "What if my partner and I argue constantly?",
+            "ans": "Consider setting rules for fair arguments, such as avoiding blame and focusing on solutions rather than problems."
+          },
+          {
+            "que": "How can I rebuild trust after a major fight?",
+            "ans": "Honest conversations, accountability, and demonstrating consistent change over time help rebuild trust."
+          }
+        ],
+        "started": "2025-02-17T00:00:00Z"
+      }
+    ]
+  }
