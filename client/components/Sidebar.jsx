@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import {
+  showConfirmationAlert,
+  showErrorAlert,
+} from "../src/utils/alertConfig";
+import { showSuccessToast, showErrorToast } from "../src/utils/toastConfig";
+import {
   Menu,
   X,
   Settings,
@@ -10,8 +15,13 @@ import {
   MessageSquare,
 } from "lucide-react";
 import Chat from "./Chat";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Sidebar() {
+  axios.defaults.withCredentials = true;
+  const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [profileDropdown, setProfileDropdown] = useState(false);
 
@@ -47,8 +57,38 @@ export default function Sidebar() {
     console.log(`Opening chat ${chatId}`);
   };
 
+  const handleLogout = async () => {
+    const confirmLogout = await showConfirmationAlert(
+      "Are you sure you want to logout?"
+    );
+    if (confirmLogout.isConfirmed) {
+      try {
+        const res = await axios.get(`${API_URL}/auth/logout`);
+        showSuccessToast(res.data, "top-right");
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        showErrorToast("internal server error", "top-center");
+      }
+    }
+  };
+
+  const checkLogin = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/user/getProfile`);
+      console.log(res.data);
+    } catch (error) {
+      showErrorToast(error.response.data || "internal server error", "top-center");
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
   return (
-    <div className="flex h-screen bg-gray-100 relative overflow-hidden">
+    <div className="flex h-screen pl-4 md:pl-0 bg-gray-100 relative overflow-hidden">
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 ${
@@ -112,7 +152,10 @@ export default function Sidebar() {
             <Settings className="text-orange-400" size={20} />
             {isOpen && <span>Settings</span>}
           </button>
-          <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in">
+          <button
+            className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in"
+            onClick={handleLogout}
+          >
             <LogOut className="text-orange-400" size={20} />
             {isOpen && <span>Log Out</span>}
           </button>
@@ -140,7 +183,7 @@ export default function Sidebar() {
             </button>
 
             {profileDropdown && (
-              <div className="absolute right-0 mt-2 w-56 bg-white border rounded-lg shadow-xl dropdown-menu">
+              <div className="absolute right-0 z-[50000000] mt-2 w-56 bg-white border rounded-lg shadow-xl dropdown-menu">
                 {/* Profile Section */}
                 <div className="p-4 flex items-center space-x-3 border-b bg-gray-100">
                   <div className="w-10 h-10 rounded-full bg-orange-400 flex items-center justify-center">
@@ -155,12 +198,15 @@ export default function Sidebar() {
                 </div>
 
                 {/* Dropdown Items */}
-                <ul className="py-2">
+                <ul className="py-2 ">
                   <li className="px-4 py-2 flex items-center space-x-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition">
                     <Settings size={18} className="text-orange-400" />
                     <span>Settings</span>
                   </li>
-                  <li className="px-4 py-2 flex items-center space-x-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition">
+                  <li
+                    className="px-4 py-2 flex items-center space-x-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition"
+                    onClick={handleLogout}
+                  >
                     <LogOut size={18} className="text-orange-400" />
                     <span>Logout</span>
                   </li>

@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import auth from "./Routes/Auth/auth.js";
 import newChat from "./Routes/chat/newChat.js";
 import chat from "./Routes/chat/chat.js";
+import cookieParser from "cookie-parser";
+import userRoutes from "./Routes/user/userRoutes.js";
 
 dotenv.config();
 
@@ -16,9 +18,11 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 app.use("/auth", auth);
 app.use("/chat/newChat", newChat);
 app.use("/chat", chat);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT;
 

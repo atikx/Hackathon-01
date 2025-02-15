@@ -63,4 +63,8 @@ router.get("/logout", (req, res) => {
   res.status(200).send("Logged out Successfully");
 });
 
+router.get("/checkLogin", authenticateToken, (req, res) => {
+  res.status(200).send("Authenticated");
+});
+
 export default router;
