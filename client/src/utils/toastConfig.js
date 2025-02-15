@@ -1,58 +1,61 @@
 import { toast } from "react-hot-toast";
 
+const defaultPosition = "top-right"; // Default position
+
 const toastConfig = {
   success: {
     style: {
-      background: "#F97316", // Orange (MindBridge Primary Color)
+      background: "#F97316", // Vibrant Orange
       color: "#FFFFFF", // White text
-      border: "1px solid #EA580C", // Darker orange border
-      padding: "12px",
+      border: "1px solid #EA580C", // Darker Orange border
+      padding: "14px",
       borderRadius: "8px",
-      fontWeight: "500",
-    },
-    iconTheme: {
-      primary: "#FFFFFF", // White icon
-      secondary: "#F97316", // Matches background
-    },
-    position: "top-center",
-  },
-  error: {
-    style: {
-      background: "#DC2626", // Red (Error color)
-      color: "#FFFFFF", // White text
-      border: "1px solid #B91C1C", // Darker red border
-      padding: "12px",
-      borderRadius: "8px",
-      fontWeight: "500",
+      fontWeight: "600",
+      boxShadow: "0px 4px 10px rgba(249, 115, 22, 0.3)", // Soft glow effect
     },
     iconTheme: {
       primary: "#FFFFFF",
-      secondary: "#DC2626",
+      secondary: "#F97316",
     },
-    position: "top-center",
+  },
+  error: {
+    style: {
+      background: "#F97316", // Orange theme for error instead of red
+      color: "#FFFFFF",
+      border: "1px solid #EA580C",
+      padding: "14px",
+      borderRadius: "8px",
+      fontWeight: "600",
+      boxShadow: "0px 4px 10px rgba(249, 115, 22, 0.3)",
+    },
+    iconTheme: {
+      primary: "#FFFFFF",
+      secondary: "#F97316",
+    },
   },
   loading: {
     style: {
       background: "#FFEDD5", // Light Orange (Subtle effect)
-      color: "#F97316", // Orange text
-      border: "1px solid #F97316", // Orange border
-      padding: "12px",
+      color: "#F97316",
+      border: "1px solid #F97316",
+      padding: "14px",
       borderRadius: "8px",
-      fontWeight: "500",
+      fontWeight: "600",
+      boxShadow: "0px 4px 10px rgba(249, 115, 22, 0.3)",
     },
     iconTheme: {
-      primary: "#F97316", // Orange icon
+      primary: "#F97316",
       secondary: "#FFEDD5",
     },
-    position: "top-center",
   },
 };
 
-export const showSuccessToast = (message) =>
-  toast.success(message, toastConfig.success);
+// ✅ Functions with Custom Position Support
+export const showSuccessToast = (message, position = defaultPosition) =>
+  toast.success(message, { ...toastConfig.success, position });
 
-export const showErrorToast = (message) =>
-  toast.error(message, toastConfig.error);
+export const showErrorToast = (message, position = defaultPosition) =>
+  toast.error(message, { ...toastConfig.error, position });
 
-export const showLoadingToast = (message) =>
-  toast.loading(message, toastConfig.loading);
+export const showLoadingToast = (message, position = defaultPosition) =>
+  toast.loading(message, { ...toastConfig.loading, position });

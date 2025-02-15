@@ -4,11 +4,18 @@ import { useForm } from "react-hook-form";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { showSuccessToast, showErrorToast } from "../utils/toastConfig";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
+// ✅ Use import.meta.env instead of process.env
 function AuthForm() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  axios.defaults.withCredentials = true;
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const navigate = useNavigate();
 
   const [isRegister, setIsRegister] = useState(false);
 
@@ -21,9 +28,17 @@ function AuthForm() {
   const onSubmit = async (data, type) => {
     console.log("Form Type:", type);
     console.log("Form Data:", data);
+
     try {
+      const response = await axios.post(`${API_URL}/auth/${type}`, data);
+      showSuccessToast(response.data, "top-center");
+      navigate("/chat");
     } catch (error) {
-      showErrorToast(error.message);
+      console.log(error);
+      showErrorToast(
+        error.response.data || "internal server error",
+        "top-center"
+      );
     }
   };
 

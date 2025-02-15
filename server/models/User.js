@@ -43,6 +43,5 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-console.log(new Date);
 const User = mongoose.model("User", userSchema);
 export default User;

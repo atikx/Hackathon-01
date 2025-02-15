@@ -20,17 +20,22 @@ router.post("/register", async (req, res) => {
       return res.status(409).send("User Already Exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      username: Math.random(),
+    });
     res.cookie("token", generateToken(user), {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).send("Registered Successfully");
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).send("server error");
+    console.log(error);
   }
 });
-
 
 router.post("/login", async (req, res) => {
   try {
