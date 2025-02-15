@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  username: {
+  email: {
     type: String,
     required: true,
     unique: true,
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
         },
         started: {
           type: Date,
-          default: Date.now,
+          default: new Date,
         },
       },
     ],
@@ -43,5 +43,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+console.log(new Date);
 const User = mongoose.model("User", userSchema);
 export default User;
