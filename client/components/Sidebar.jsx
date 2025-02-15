@@ -8,11 +8,11 @@ import {
   MessageCircle,
   LogOut,
 } from "lucide-react";
-
+ 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [profileDropdown, setProfileDropdown] = useState(false);
-
+ 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -27,7 +27,7 @@ export default function Sidebar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+ 
   useEffect(() => {
     const handleResize = () => {
       setIsOpen(window.innerWidth >= 768);
@@ -35,16 +35,16 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+ 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 relative overflow-hidden">
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 ${
           isOpen
             ? "w-64 translate-x-0"
             : "w-12 -translate-x-full md:translate-x-0"
-        }`}
+        } rounded-tr-[50px]`}
       >
         <div className="flex items-center justify-between p-4 h-16">
           {isOpen && (
@@ -62,7 +62,7 @@ export default function Sidebar() {
             <Menu size={24} />
           </button>
         </div>
-
+ 
         {isOpen && (
           <div className="p-4 space-y-4 overflow-auto flex-1">
             <button
@@ -76,11 +76,9 @@ export default function Sidebar() {
             </button>
           </div>
         )}
-
+ 
         {/* Bottom Icons */}
-        {/* Creating a Line with 80% width */}
         <div className="border-t border-gray-400 w-[90%] mx-auto rounded-full"></div>
-        {/* Bottom Icons */}
         <div className="p-4 flex flex-col space-y-4 mt-auto">
           <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in">
             <Settings className="text-orange-400" size={20} />
@@ -91,19 +89,14 @@ export default function Sidebar() {
             text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in
           "
           >
-            <LogOut
-              className="
-              text-orange-400
-            "
-              size={20}
-            />
+            <LogOut className="text-orange-400" size={20} />
             {isOpen && <span>Log Out</span>}
           </button>
         </div>
       </div>
-
+ 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col relative z-10 pr-4 bg-zinc-900 pb-4">
         {/* Navbar */}
         <header className="flex items-center justify-between p-4 bg-zinc-900 h-16">
           <button
@@ -133,10 +126,13 @@ export default function Sidebar() {
             )}
           </div>
         </header>
-
+ 
         {/* Content Area */}
-        <main className="flex-1 p-4 overflow-auto bg-gray-50"></main>
+        <main className="flex-1 p-4 overflow-auto bg-white border-zinc-900 border-2 rounded-2xl"></main>
       </div>
+ 
+      {/* Right and Bottom Coating */}
+      <div className="absolute bottom-0 right-0 w-full h-full bg-zinc-900 rounded-br-2xl rounded-tr-none rounded-tl-none pointer-events-none"></div>
     </div>
   );
 }
