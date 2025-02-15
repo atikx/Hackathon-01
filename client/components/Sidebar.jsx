@@ -24,6 +24,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [profileDropdown, setProfileDropdown] = useState(false);
+  const [user, setuser] = useState({});
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -77,8 +78,12 @@ export default function Sidebar() {
     try {
       const res = await axios.get(`${API_URL}/user/getProfile`);
       console.log(res.data);
+      setuser(res.data);
     } catch (error) {
-      showErrorToast(error.response.data || "internal server error", "top-center");
+      showErrorToast(
+        error.response.data || "internal server error",
+        "top-center"
+      );
       navigate("/login");
     }
   };
@@ -191,9 +196,11 @@ export default function Sidebar() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-800">
-                      John Doe
+                      {user && user.name}
                     </p>
-                    <p className="text-xs text-gray-500">johndoe@example.com</p>
+                    <p className="text-xs text-gray-500">
+                      {user && user.email}
+                    </p>
                   </div>
                 </div>
 
