@@ -9,6 +9,7 @@ import {
   LogOut,
   MessageSquare,
 } from "lucide-react";
+import Chat from "./ Chat";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
@@ -170,7 +171,9 @@ export default function Sidebar() {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 p-4 overflow-hidden bg-white border-zinc-900 border-2 rounded-2xl"></main>
+        <main className="flex-1 overflow-hidden bg-white border-zinc-900 border-2 rounded-2xl">
+          <Chat />
+        </main>
       </div>
 
       {/* Right and Bottom Coating */}
