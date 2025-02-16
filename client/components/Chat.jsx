@@ -72,14 +72,8 @@ const Chat = ({ display }) => {
           {data?.messages?.map((msg, index) => (
             <div key={index} className="flex flex-col space-y-1">
               <div className="flex items-end justify-end gap-2.5 m-4">
-                <div className="bg-orange-300 p-3 rounded-lg self-end w-fit max-w-xs shadow-md text-gray-800 font-medium">
-                  <span className="text-xs font-semibold text-gray-900">
-                    John Doe
-                  </span>
+                <div className="bg-orange-300 p-3 rounded-lg self-end md:w-1/3 w-full shadow-md text-gray-800 font-medium">
                   <p className="text-sm mt-1">{msg.que}</p>
-                  <span className="text-[10px] text-gray-600 block text-right mt-1">
-                    Sent at: {new Date().toLocaleTimeString().slice(0, 5)}
-                  </span>
                 </div>
                 <User
                   className="border-2 border-orange-300 rounded-full p-2 bg-orange-100 shadow-md"
@@ -91,12 +85,11 @@ const Chat = ({ display }) => {
                   className="border-2 border-gray-300 rounded-full p-2 bg-gray-100 shadow-md"
                   size={32}
                 />
-                <div className="bg-gray-300 p-3 rounded-lg self-start w-fit max-w-xs shadow-md text-gray-800 font-medium">
+                <div className="bg-gray-300 p-3 rounded-lg self-start md:w-1/3 w-full shadow-md text-gray-800 font-medium">
                   <span className="text-xs font-semibold text-gray-900">
                     Therapist Bot
                   </span>
                   <p className="text-sm mt-1">{msg.ans}</p>
-                  
                 </div>
               </div>
             </div>
