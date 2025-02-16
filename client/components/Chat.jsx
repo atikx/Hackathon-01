@@ -40,9 +40,12 @@ const Chat = () => {
       </div>
 
       {/* Chat Area */}
-      <div className="flex flex-1 items-center justify-center p-6">
+      <div className="flex flex-1 items-end -translate-y-28 justify-center p-6">
         <div className="w-full max-w-4xl text-center space-y-2">
-          <h2 className="text-5xl font-bold text-gray-800 font-rubik" data-aos="fade-up">
+          <h2
+            className="text-5xl font-bold text-gray-800 font-rubik"
+            data-aos="fade-up"
+          >
             Let's Talk.
           </h2>
           <p
@@ -82,7 +85,10 @@ const Chat = () => {
           </div>
 
           {/* Chat Input */}
-          <div className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden" data-aos="fade-up">
+          <div
+            className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden"
+            data-aos="fade-up"
+          >
             <textarea
               className="flex-1 p-4 text-lg outline-none resize-none"
               style={{ height: inputHeight, minHeight: "50px" }}
