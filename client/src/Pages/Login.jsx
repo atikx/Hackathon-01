@@ -32,7 +32,7 @@ function AuthForm() {
     try {
       const response = await axios.post(`${API_URL}/auth/${type}`, data);
       showSuccessToast(response.data, "top-center");
-      navigate("/chat");
+      navigate("/newchat");
     } catch (error) {
       console.log(error);
       showErrorToast(

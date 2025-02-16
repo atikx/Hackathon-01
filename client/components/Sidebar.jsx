@@ -15,6 +15,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import Chat from "./Chat";
+import Newchat from "./NewChat";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -122,7 +123,7 @@ export default function Sidebar() {
                 {data?.chats?.length > 0 ? (
                   data.chats.map((chat) => (
                     <li
-                      key={chat.id}
+                      key={Math.random()}
                       className="flex items-center gap-x-2 px-4 py-2 text-white bg-zinc-800 rounded-lg cursor-pointer transition duration-200 hover:bg-zinc-700"
                       onClick={() => console.log(`Opening chat ${chat.id}`)}
                     >
@@ -213,7 +214,7 @@ export default function Sidebar() {
 
         {/* Content Area */}
         <main className="flex-1 overflow-hidden bg-white border-zinc-900 border-2 rounded-2xl">
-          <Chat display="none" />
+          <Newchat display="" />
         </main>
       </div>
     </div>
