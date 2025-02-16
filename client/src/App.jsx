@@ -5,6 +5,8 @@ import Login from "./Pages/Login";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Landing from "./Pages/Landing";
 import SpecificChat from "../components/SpecificChat";
+import NotFound from "./Pages/NotFound";
+
 function App() {
   const queryClient = new QueryClient();
 
@@ -18,6 +20,7 @@ function App() {
             <Route path="/chat/:id" element={<SpecificChat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
       </QueryClientProvider>
