@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
-import {
-  showConfirmationAlert,
-  showErrorAlert,
-} from "../src/utils/alertConfig";
+import { showConfirmationAlert, showErrorAlert } from "../src/utils/alertConfig";
 import { showSuccessToast, showErrorToast } from "../src/utils/toastConfig";
 import {
-  Menu,
-  X,
-  Settings,
-  User,
-  HelpingHand,
-  MessageCircle,
-  LogOut,
-  MessageSquare,
+  Menu, X, Settings, User, HelpingHand, MessageCircle, LogOut, MessageSquare,
 } from "lucide-react";
 import Chat from "./Chat";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useQuery } from "react-query";
+import { ClipLoader } from "react-spinners";  // Import Spinner
 
 export default function Sidebar() {
   axios.defaults.withCredentials = true;
@@ -24,7 +16,6 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(window.innerWidth >= 768);
   const [profileDropdown, setProfileDropdown] = useState(false);
-  const [user, setuser] = useState({});
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -36,72 +27,47 @@ export default function Sidebar() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsOpen(window.innerWidth >= 768);
-    };
+    const handleResize = () => setIsOpen(window.innerWidth >= 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const previousChats = [
-    { id: 1, title: "Chat on 9th Feb 2025" },
-    { id: 2, title: "Chat on 12th Feb 2025" },
-  ];
-
-  const handleChatClick = (chatId) => {
-    console.log(`Opening chat ${chatId}`);
-  };
-
   const handleLogout = async () => {
-    const confirmLogout = await showConfirmationAlert(
-      "Are you sure you want to logout?"
-    );
+    const confirmLogout = await showConfirmationAlert("Are you sure you want to logout?");
     if (confirmLogout.isConfirmed) {
       try {
         const res = await axios.get(`${API_URL}/auth/logout`);
         showSuccessToast(res.data, "top-right");
         navigate("/");
       } catch (error) {
-        console.log(error);
-        showErrorToast("internal server error", "top-center");
+        showErrorToast("Internal server error", "top-center");
       }
     }
   };
 
-  const checkLogin = async () => {
+  const getProfile = async () => {
     try {
       const res = await axios.get(`${API_URL}/user/getProfile`);
-      console.log(res.data);
-      setuser(res.data);
+      return res.data;
     } catch (error) {
-      showErrorToast(
-        error.response.data || "internal server error",
-        "top-center"
-      );
+      showErrorToast(error.response?.data || "Internal server error", "top-center");
       navigate("/login");
+      return { chats: [] };
     }
   };
 
-  useEffect(() => {
-    checkLogin();
-  }, []);
+  // Use TanStack Query for fetching profile data
+  const { data = { chats: [] }, isLoading } = useQuery("user", getProfile);
 
   return (
-    <div className="flex h-screen pl-4 md:pl-0 bg-gray-100 relative overflow-hidden">
+    <div className="flex h-screen pl-4 md:pl-0 bg-zinc-900 relative overflow-hidden">
       {/* Sidebar */}
-      <div
-        className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 ${
-          isOpen
-            ? "w-64 translate-x-0"
-            : "w-12 -translate-x-full md:translate-x-0"
-        } rounded-tr-[50px]`}
-      >
+      <div className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 
+        ${isOpen ? "w-64 translate-x-0" : "w-12 -translate-x-full md:translate-x-0"} rounded-tr-[50px]`}>
         <div className="flex items-center justify-between p-4 h-16">
           {isOpen && (
             <div className="flex items-center space-x-2">
@@ -111,20 +77,14 @@ export default function Sidebar() {
               </h1>
             </div>
           )}
-          <button
-            className="text-gray-600 hover:text-gray-500 md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className="text-gray-600 hover:text-gray-500 md:hidden" onClick={() => setIsOpen(!isOpen)}>
             <Menu size={24} />
           </button>
         </div>
 
         {isOpen && (
           <div className="p-4 space-y-4 flex-1">
-            <button
-              className="flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-semibold rounded-lg cursor-pointer
-              bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500"
-            >
+            <button className="flex items-center justify-start gap-x-2 w-full px-4 py-2 text-zinc-900 font-semibold rounded-lg cursor-pointer bg-orange-400 transition duration-200 ease-in-out hover:bg-orange-500">
               <MessageCircle size={20} />
               <span>Start a Chat</span>
             </button>
@@ -135,16 +95,20 @@ export default function Sidebar() {
                 Previous Chats
               </h2>
               <ul className="mt-2 space-y-2">
-                {previousChats.map((chat) => (
-                  <li
-                    key={chat.id}
-                    className="flex items-center gap-x-2 px-4 py-2 text-white bg-zinc-800 rounded-lg cursor-pointer transition duration-200 hover:bg-zinc-700"
-                    onClick={() => handleChatClick(chat.id)}
-                  >
-                    <MessageSquare size={18} className="text-orange-400" />
-                    <span className="text-sm">{chat.title}</span>
-                  </li>
-                ))}
+                {data?.chats?.length > 0 ? (
+                  data.chats.map((chat) => (
+                    <li
+                      key={chat.id}
+                      className="flex items-center gap-x-2 px-4 py-2 text-white bg-zinc-800 rounded-lg cursor-pointer transition duration-200 hover:bg-zinc-700"
+                      onClick={() => console.log(`Opening chat ${chat.id}`)}
+                    >
+                      <MessageSquare size={18} className="text-orange-400" />
+                      <span className="text-sm">{chat.title}</span>
+                    </li>
+                  ))
+                ) : (
+                  <p className="text-gray-400 text-sm">No chats available</p>
+                )}
               </ul>
             </div>
           </div>
@@ -157,10 +121,8 @@ export default function Sidebar() {
             <Settings className="text-orange-400" size={20} />
             {isOpen && <span>Settings</span>}
           </button>
-          <button
-            className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in"
-            onClick={handleLogout}
-          >
+          <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in"
+            onClick={handleLogout}>
             <LogOut className="text-orange-400" size={20} />
             {isOpen && <span>Log Out</span>}
           </button>
@@ -171,14 +133,11 @@ export default function Sidebar() {
       <div className="flex-1 flex flex-col relative z-10 pr-4 bg-zinc-900 pb-4">
         {/* Navbar */}
         <header className="flex items-center justify-between p-4 bg-zinc-900 h-16">
-          <button
-            className="text-gray-600 hover:text-gray-500 md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className="text-gray-600 hover:text-gray-500 md:hidden" onClick={() => setIsOpen(!isOpen)}>
             <Menu size={24} />
           </button>
 
-          {/* Profile Dropdown */}
+          {/* Profile Dropdown & Loading Spinner */}
           <div className="relative ml-auto">
             <button
               className="p-2 border-orange-400 border-2 rounded-full hover:bg-orange-100 transition duration-200 cursor-pointer profile-button"
@@ -196,10 +155,10 @@ export default function Sidebar() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-800">
-                      {user && user.name}
+                      {data && data.name}
                     </p>
                     <p className="text-xs text-gray-500">
-                      {user && user.email}
+                      {data && data.email}
                     </p>
                   </div>
                 </div>
@@ -228,9 +187,6 @@ export default function Sidebar() {
           <Chat />
         </main>
       </div>
-
-      {/* Right and Bottom Coating */}
-      <div className="absolute bottom-0 right-0 w-full h-full bg-zinc-900 rounded-br-2xl rounded-tr-none rounded-tl-none pointer-events-none"></div>
     </div>
   );
 }

@@ -20,7 +20,10 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.2",
+    "react-query": "^3.39.3",
     "react-router-dom": "^7.1.5",
+    "react-spinner": "^0.2.7",
+    "react-spinners": "^0.15.0",
     "sweetalert2": "^11.16.1",
     "tailwindcss": "^4.0.6"
   },
