@@ -4,6 +4,7 @@ import { getans } from "../../middlewares/chatIntegration.js";
 const router = Router();
 import { authenticateToken } from "../../middlewares/jwtauth.js";
 
+
 router.post("/sendMsg/:id", authenticateToken, async (req, res) => {
   console.log("hello");
   try {

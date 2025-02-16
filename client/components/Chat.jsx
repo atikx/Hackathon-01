@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Send, Smile, Heart, Brain, CloudRain, User } from "lucide-react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Chat = ({ display }) => {
   const { id } = useParams();
   axios.defaults.withCredentials = true;
   const API_URL = import.meta.env.VITE_API_URL;
-  const [message, setMessage] = useState("");
-  const [inputHeight, setInputHeight] = useState("auto");
-  const [showQuickChat, setShowQuickChat] = useState(true);
+
+  const { register, handleSubmit, reset } = useForm(); // React Hook Form
+  const [showQuickChat, setShowQuickChat] = React.useState(true);
 
   const getChat = async () => {
     try {
@@ -30,16 +31,19 @@ const Chat = ({ display }) => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  const handleInputChange = (e) => {
-    setMessage(e.target.value);
-    setInputHeight("auto");
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
-  };
-
-  const handleSendMessage = () => {
-    if (message.trim() !== "") {
+  const onSubmit = (formData) => {
+    if (formData.message.trim() !== "") {
       setShowQuickChat(false);
+      console.log("Message Sent:", formData.message);
+      reset(); // Reset the input field after sending
+      try {
+        const res = axios.post(`${API_URL}/chat/sendMsg/${id}`, {
+          que: formData.message,
+        });
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -72,7 +76,10 @@ const Chat = ({ display }) => {
           {data?.messages?.map((msg, index) => (
             <div key={index} className="flex flex-col space-y-1">
               <div className="flex items-end justify-end gap-2.5 m-4">
-                <div className="bg-orange-300 p-3 rounded-lg self-end md:w-1/3 w-full shadow-md text-gray-800 font-medium">
+                <div className="bg-orange-300 p-3 rounded-lg self-end w-fit max-w-xs shadow-md text-gray-800 font-medium">
+                  <span className="text-xs font-semibold text-gray-900">
+                    John Doe
+                  </span>
                   <p className="text-sm mt-1">{msg.que}</p>
                 </div>
                 <User
@@ -85,7 +92,7 @@ const Chat = ({ display }) => {
                   className="border-2 border-gray-300 rounded-full p-2 bg-gray-100 shadow-md"
                   size={32}
                 />
-                <div className="bg-gray-300 p-3 rounded-lg self-start md:w-1/3 w-full shadow-md text-gray-800 font-medium">
+                <div className="bg-gray-300 p-3 rounded-lg self-start w-fit max-w-xs shadow-md text-gray-800 font-medium">
                   <span className="text-xs font-semibold text-gray-900">
                     Therapist Bot
                   </span>
@@ -151,22 +158,23 @@ const Chat = ({ display }) => {
             </>
           )}
 
-          {/* Chat Input */}
-          <div className="flex ml-5 md:ml-0 w-80 md:w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
+          {/* Chat Input Form with React Hook Form */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex ml-5 md:ml-0 w-80 md:w-full border border-gray-300 rounded-lg shadow-md overflow-hidden"
+          >
             <textarea
+              {...register("message", { required: true })}
               className="flex-1 p-4 text-base md:text-lg outline-none resize-none"
-              style={{ height: inputHeight, minHeight: "50px" }}
               placeholder="Type your message here..."
-              value={message}
-              onChange={handleInputChange}
             />
             <button
+              type="submit"
               className="bg-orange-500 text-white px-6 flex items-center justify-center hover:bg-orange-600 transition duration-200 cursor-pointer"
-              onClick={handleSendMessage}
             >
               <Send size={24} />
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
