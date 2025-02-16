@@ -1,14 +1,24 @@
 import { useState, useEffect } from "react";
-import { showConfirmationAlert, showErrorAlert } from "../src/utils/alertConfig";
+import {
+  showConfirmationAlert,
+  showErrorAlert,
+} from "../src/utils/alertConfig";
 import { showSuccessToast, showErrorToast } from "../src/utils/toastConfig";
 import {
-  Menu, X, Settings, User, HelpingHand, MessageCircle, LogOut, MessageSquare,
+  Menu,
+  X,
+  Settings,
+  User,
+  HelpingHand,
+  MessageCircle,
+  LogOut,
+  MessageSquare,
 } from "lucide-react";
 import Chat from "./Chat";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { ClipLoader } from "react-spinners";  // Import Spinner
+import { ClipLoader } from "react-spinners"; // Import Spinner
 
 export default function Sidebar() {
   axios.defaults.withCredentials = true;
@@ -37,7 +47,9 @@ export default function Sidebar() {
   }, []);
 
   const handleLogout = async () => {
-    const confirmLogout = await showConfirmationAlert("Are you sure you want to logout?");
+    const confirmLogout = await showConfirmationAlert(
+      "Are you sure you want to logout?"
+    );
     if (confirmLogout.isConfirmed) {
       try {
         const res = await axios.get(`${API_URL}/auth/logout`);
@@ -54,7 +66,10 @@ export default function Sidebar() {
       const res = await axios.get(`${API_URL}/user/getProfile`);
       return res.data;
     } catch (error) {
-      showErrorToast(error.response?.data || "Internal server error", "top-center");
+      showErrorToast(
+        error.response?.data || "Internal server error",
+        "top-center"
+      );
       navigate("/login");
       return { chats: [] };
     }
@@ -66,8 +81,14 @@ export default function Sidebar() {
   return (
     <div className="flex h-screen pl-4 md:pl-0 bg-zinc-900 relative overflow-hidden">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 
-        ${isOpen ? "w-64 translate-x-0" : "w-12 -translate-x-full md:translate-x-0"} rounded-tr-[50px]`}>
+      <div
+        className={`fixed inset-y-0 left-0 transform transition-transform duration-300 ease-in-out bg-zinc-900 md:relative flex flex-col z-50 
+        ${
+          isOpen
+            ? "w-64 translate-x-0"
+            : "w-12 -translate-x-full md:translate-x-0"
+        } rounded-tr-[50px]`}
+      >
         <div className="flex items-center justify-between p-4 h-16">
           {isOpen && (
             <div className="flex items-center space-x-2">
@@ -77,7 +98,10 @@ export default function Sidebar() {
               </h1>
             </div>
           )}
-          <button className="text-gray-600 hover:text-gray-500 md:hidden" onClick={() => setIsOpen(!isOpen)}>
+          <button
+            className="text-gray-600 hover:text-gray-500 md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <Menu size={24} />
           </button>
         </div>
@@ -121,8 +145,10 @@ export default function Sidebar() {
             <Settings className="text-orange-400" size={20} />
             {isOpen && <span>Settings</span>}
           </button>
-          <button className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in"
-            onClick={handleLogout}>
+          <button
+            className="text-white hover:text-orange-400 flex items-center space-x-2 cursor-pointer transition-colors duration-200 ease-in"
+            onClick={handleLogout}
+          >
             <LogOut className="text-orange-400" size={20} />
             {isOpen && <span>Log Out</span>}
           </button>
@@ -133,7 +159,10 @@ export default function Sidebar() {
       <div className="flex-1 flex flex-col relative z-10 pr-4 bg-zinc-900 pb-4">
         {/* Navbar */}
         <header className="flex items-center justify-between p-4 bg-zinc-900 h-16">
-          <button className="text-gray-600 hover:text-gray-500 md:hidden" onClick={() => setIsOpen(!isOpen)}>
+          <button
+            className="text-gray-600 hover:text-gray-500 md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <Menu size={24} />
           </button>
 
@@ -184,7 +213,7 @@ export default function Sidebar() {
 
         {/* Content Area */}
         <main className="flex-1 overflow-hidden bg-white border-zinc-900 border-2 rounded-2xl">
-          <Chat />
+          <Chat display="none" />
         </main>
       </div>
     </div>
