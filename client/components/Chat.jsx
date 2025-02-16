@@ -43,13 +43,13 @@ const Chat = () => {
       <div className="flex flex-1 items-end -translate-y-28 justify-center p-6">
         <div className="w-full max-w-4xl text-center space-y-2">
           <h2
-            className="text-5xl font-bold text-gray-800 font-rubik"
+            className="text-3xl md:text-5xl font-bold text-gray-800 font-rubik"
             data-aos="fade-up"
           >
             Let's Talk.
           </h2>
           <p
-            className="text-gray-600 mb-8 font-light text-lg font-rubik"
+            className="text-gray-600 mb-8 font-light text-md:text-lg font-rubik"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -57,7 +57,7 @@ const Chat = () => {
           </p>
 
           {/* Quick Chat Buttons */}
-          <div className="flex justify-center gap-4 mb-6">
+          <div className="flex flex-wrap justify-center gap-4 mb-6">
             <button
               className="flex items-center gap-2 px-4 py-2 border rounded-lg shadow-sm hover:bg-gray-100 transition cursor-pointer"
               style={{ color: "#ff7f50" }}
@@ -85,9 +85,9 @@ const Chat = () => {
           </div>
 
           {/* Chat Input */}
-          <div className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
+          <div className="flex w-80 md:w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
             <textarea
-              className="flex-1 p-4 text-lg outline-none resize-none"
+              className="flex-1 p-4 text-base md:text-lg outline-none resize-none"
               style={{ height: inputHeight, minHeight: "50px" }}
               placeholder="Type your message here..."
               value={message}
