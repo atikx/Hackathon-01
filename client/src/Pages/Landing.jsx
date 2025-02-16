@@ -95,7 +95,7 @@ function Landing() {
           </div>
         </div>
       </div>
-      <div className="h-20"></div> {/* Spacer to force scroll */}
+      <div className="h-screen"></div> {/* Spacer to force scroll */}
       <div data-aos="fade-up" data-aos-anchor-placement="top-bottom">
         <FeaturesSection />
       </div>
