@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import landingImage from "../assets/img/Group 48.svg";
+import FeaturesSection from "./FeaturesSection";
 
 function Landing() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function Landing() {
   }, []);
 
   return (
+    <>
     <div className="bg-white pr-14 pl-14">
       {/* Header Section */}
       <header className="flex justify-between items-center p-6 bg-white">
@@ -74,6 +76,11 @@ function Landing() {
         </div>
       </div>
     </div>
+    <div className="h-35"></div> {/* Spacer to force scroll */}
+    <div data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <FeaturesSection/>
+    </div>
+  </>
   );
 }
 
