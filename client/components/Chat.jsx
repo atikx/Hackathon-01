@@ -8,6 +8,41 @@ const Chat = ({ display }) => {
   const [inputHeight, setInputHeight] = useState("auto");
   const [showQuickChat, setShowQuickChat] = useState(true);
 
+  const sampleChat = {
+    title: "Anxiety Support",
+    messages: [
+      {
+        que: "Why do I feel anxious all the time?",
+        ans: "Anxiety can stem from various factors like stress, lifestyle, or past experiences. Practicing mindfulness and deep breathing may help.",
+      },
+      {
+        que: "Can anxiety be completely cured?",
+        ans: "While anxiety may not always be completely cured, it can be effectively managed with therapy, lifestyle changes, and medication if necessary.",
+      },
+      {
+        que: "What are some quick ways to reduce anxiety?",
+        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
+      },
+      {
+        que: "What are some quick ways to reduce anxiety?",
+        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
+      },
+      {
+        que: "What are some quick ways to reduce anxiety?",
+        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
+      },
+      {
+        que: "What are some quick ways to reduce anxiety?",
+        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
+      },
+      {
+        que: "What are some quick ways to reduce anxiety?",
+        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
+      },
+    ],
+    started: "2025-02-15T00:00:00Z",
+  };
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -26,7 +61,7 @@ const Chat = ({ display }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-50">
+    <div className="flex flex-col relative h-screen w-full bg-gray-50">
       {/* Top Bar */}
       <div
         className="w-full bg-white p-4 border-b shadow-md flex flex-col md:flex-row md:items-center justify-between px-6"
@@ -46,9 +81,25 @@ const Chat = ({ display }) => {
         </div>
       </div>
 
+      <div className=" overflow-x-scroll h-[60%]">
+       
+        <div className="space-y-4">
+          {sampleChat.messages.map((msg, index) => (
+            <div key={index} className="flex flex-col space-y-1">
+              <div className="bg-blue-500 p-2 rounded-lg self-end w-fit max-w-xs">
+                <p className="text-sm">{msg.que}</p>
+              </div>
+              <div className="bg-gray-700 p-2 rounded-lg self-start w-fit max-w-xs">
+                <p className="text-sm">{msg.ans}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Chat Area */}
       <div className="flex flex-1 items-end -translate-y-28 justify-center p-6">
-        <div className="w-full max-w-4xl  text-center space-y-2">
+        <div className="w-full max-w-4xl absolute bottom-0 text-center space-y-2">
           {showQuickChat && (
             <>
               <h2
