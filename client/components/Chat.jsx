@@ -2,14 +2,32 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Send, Smile, Heart, Brain, CloudRain, User } from "lucide-react";
+import axios from "axios";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 const Chat = ({ display }) => {
   const { id } = useParams();
-  console.log(id);
+  axios.defaults.withCredentials = true;
+  const API_URL = import.meta.env.VITE_API_URL;
   const [message, setMessage] = useState("");
   const [inputHeight, setInputHeight] = useState("auto");
   const [showQuickChat, setShowQuickChat] = useState(true);
+
+  const getChat = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/chat/getChat/${id}`);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const { data } = useQuery("chat", getChat);
+
+  {
+    data && console.log(data);
+  }
 
   const sampleChat = {
     title: "Anxiety Support",
