@@ -13,8 +13,10 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/chat" element={<Sidebar />} />
-            <Route path="/login" element={<Login />} />
+            <div className="h-screen w-screen overflow-hidden">
+              <Route path="/chat" element={<Sidebar />} />
+              <Route path="/login" element={<Login />} />
+            </div>
           </Routes>
         </Router>
       </QueryClientProvider>
