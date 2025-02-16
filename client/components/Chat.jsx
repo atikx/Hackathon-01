@@ -20,49 +20,11 @@ const Chat = ({ display }) => {
       return res.data;
     } catch (error) {
       console.error(error);
+      return null;
     }
   };
 
-  const { data } = useQuery("chat", getChat);
-
-  {
-    data && console.log(data);
-  }
-
-  const sampleChat = {
-    title: "Anxiety Support",
-    messages: [
-      {
-        que: "Why do I feel anxious all the time?",
-        ans: "Anxiety can stem from various factors like stress, lifestyle, or past experiences. Practicing mindfulness and deep breathing may help.",
-      },
-      {
-        que: "Can anxiety be completely cured?",
-        ans: "While anxiety may not always be completely cured, it can be effectively managed with therapy, lifestyle changes, and medication if necessary.",
-      },
-      {
-        que: "What are some quick ways to reduce anxiety?",
-        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
-      },
-      {
-        que: "What are some quick ways to reduce anxiety?",
-        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
-      },
-      {
-        que: "What are some quick ways to reduce anxiety?",
-        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
-      },
-      {
-        que: "What are some quick ways to reduce anxiety?",
-        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
-      },
-      {
-        que: "What are some quick ways to reduce anxiety?",
-        ans: "Try deep breathing exercises, progressive muscle relaxation, or grounding techniques like focusing on your senses.",
-      },
-    ],
-    started: "2025-02-15T00:00:00Z",
-  };
+  const { data } = useQuery(["chat", id], getChat);
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -98,13 +60,16 @@ const Chat = ({ display }) => {
         </div>
         <div className="text-sm text-gray-600 font-medium mt-2 md:mt-0">
           Type of Chat:{" "}
-          <span className="text-orange-500 font-bold">{sampleChat.title}</span>
+          <span className="text-orange-500 font-bold">
+            {data?.title || "Chat"}
+          </span>
         </div>
       </div>
 
-      <div className=" overflow-x-scroll h-[65%] md:h-[70%]">
+      {/* Chat Messages */}
+      <div className="overflow-x-scroll h-[65%] md:h-[70%]">
         <div className="space-y-4">
-          {sampleChat.messages.map((msg, index) => (
+          {data?.messages?.map((msg, index) => (
             <div key={index} className="flex flex-col space-y-1">
               <div className="flex items-end justify-end gap-2.5 m-4">
                 <div className="bg-orange-300 p-3 rounded-lg self-end w-fit max-w-xs shadow-md text-gray-800 font-medium">
@@ -117,17 +82,13 @@ const Chat = ({ display }) => {
                   </span>
                 </div>
                 <User
-                  className="
-                  border-2 border-orange-300 rounded-full p-2 bg-orange-100 shadow-md
-                "
+                  className="border-2 border-orange-300 rounded-full p-2 bg-orange-100 shadow-md"
                   size={32}
                 />
               </div>
               <div className="flex items-start gap-2.5 m-4">
                 <User
-                  className="
-                  border-2 border-gray-300 rounded-full p-2 bg-gray-100 shadow-md
-                "
+                  className="border-2 border-gray-300 rounded-full p-2 bg-gray-100 shadow-md"
                   size={32}
                 />
                 <div className="bg-gray-300 p-3 rounded-lg self-start w-fit max-w-xs shadow-md text-gray-800 font-medium">
@@ -135,9 +96,7 @@ const Chat = ({ display }) => {
                     Therapist Bot
                   </span>
                   <p className="text-sm mt-1">{msg.ans}</p>
-                  <span className="text-[10px] text-gray-600 block text-right mt-1">
-                    Sent at: {new Date().toLocaleTimeString().slice(0, 5)}
-                  </span>
+                  
                 </div>
               </div>
             </div>
