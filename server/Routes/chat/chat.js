@@ -13,7 +13,7 @@ router.post("/sendMsg/:id", authenticateToken, async (req, res) => {
     const { que } = req.body;
     const title = chat.title;
     const ans = await getans(que, title);
-    chat.messages.push({ que, ans });
+    chat.messages.push({ que, ans }); 
     await user.save();
   } catch (error) {
     res.status(500).json("server error");

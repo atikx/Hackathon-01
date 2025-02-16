@@ -34,6 +34,7 @@ const toastConfig = {
     },
   },
   loading: {
+    duration: 3000,
     style: {
       background: "#FFEDD5", // Light Orange (Subtle effect)
       color: "#F97316",

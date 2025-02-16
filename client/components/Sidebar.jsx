@@ -92,7 +92,10 @@ export default function Sidebar() {
       >
         <div className="flex items-center justify-between p-4 h-16">
           {isOpen && (
-            <div className="flex items-center space-x-2">
+            <div
+              className="flex cursor-pointer items-center space-x-2"
+              onClick={() => navigate("/")}
+            >
               <HelpingHand className="text-orange-400 w-8 h-8" />
               <h1 className="text-2xl text-white font-kreon tracking-wide font-bold">
                 MindBridge
