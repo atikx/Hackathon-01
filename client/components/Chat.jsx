@@ -57,7 +57,7 @@ const Chat = () => {
           </p>
 
           {/* Quick Chat Buttons */}
-          <div className="flex justify-center gap-4 mb-6" data-aos="zoom-in">
+          <div className="flex justify-center gap-4 mb-6">
             <button
               className="flex items-center gap-2 px-4 py-2 border rounded-lg shadow-sm hover:bg-gray-100 transition cursor-pointer"
               style={{ color: "#ff7f50" }}
@@ -85,10 +85,7 @@ const Chat = () => {
           </div>
 
           {/* Chat Input */}
-          <div
-            className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden"
-            data-aos="fade-up"
-          >
+          <div className="flex w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
             <textarea
               className="flex-1 p-4 text-lg outline-none resize-none"
               style={{ height: inputHeight, minHeight: "50px" }}
