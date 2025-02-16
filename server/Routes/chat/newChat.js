@@ -11,8 +11,10 @@ router.post("/", authenticateToken, async (req, res) => {
     const user = await User.findById(req.user.mongoId);
     const { title, que } = req.body;
     const ans = await getans(que, title);
-    user.chats.push({ title, messages: [{ que, ans }] });
+    console.log(user.chats[user.chats.length - 1]._id);
     await user.save();
+    const tosend = user.chats[user.chats.length - 1]._id;
+    res.send(tosend);
   } catch (error) {
     res.status(500).json("server error");
     console.log(error);

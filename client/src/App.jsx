@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/newchat" element={<Sidebar />} />
-            <Route path="/chat" element={<SpecificChat />} />
+            <Route path="/chat/:id" element={<SpecificChat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/login" element={<Login />} />
           </Routes>

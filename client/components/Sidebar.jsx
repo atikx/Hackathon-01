@@ -125,7 +125,7 @@ export default function Sidebar() {
                     <li
                       key={Math.random()}
                       className="flex items-center gap-x-2 px-4 py-2 text-white bg-zinc-800 rounded-lg cursor-pointer transition duration-200 hover:bg-zinc-700"
-                      onClick={() => console.log(`Opening chat ${chat.id}`)}
+                      onClick={() => navigate(`/chat/${chat._id}`)}
                     >
                       <MessageSquare size={18} className="text-orange-400" />
                       <span className="text-sm">{chat.title}</span>

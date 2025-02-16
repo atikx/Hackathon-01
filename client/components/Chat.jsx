@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Send, Smile, Heart, Brain, CloudRain, User } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 const Chat = ({ display }) => {
+  const { id } = useParams();
+  console.log(id);
   const [message, setMessage] = useState("");
   const [inputHeight, setInputHeight] = useState("auto");
   const [showQuickChat, setShowQuickChat] = useState(true);

@@ -4,12 +4,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Send, Smile, Heart, Brain, CloudRain } from "lucide-react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 const Chat = ({ display }) => {
   axios.defaults.withCredentials = true;
   const API_URL = import.meta.env.VITE_API_URL;
-
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
   const [showQuickChat, setShowQuickChat] = useState(true);
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -24,6 +24,7 @@ const Chat = ({ display }) => {
         ...data,
         title: selectedTopic,
       });
+      navigate(`/chat/${res.data}`);
       setShowQuickChat(false);
       reset();
     } catch (error) {
