@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Send, Smile, Heart, Brain, CloudRain } from "lucide-react";
+import { Send, Smile, Heart, Brain, CloudRain, User } from "lucide-react";
 
 const Chat = ({ display }) => {
   const [message, setMessage] = useState("");
@@ -76,21 +76,48 @@ const Chat = ({ display }) => {
           })}
         </div>
         <div className="text-sm text-gray-600 font-medium mt-2 md:mt-0">
-          Your Current Chat ID:{" "}
-          <span className="text-orange-500 font-bold">Ab3C4Dke</span>
+          Type of Chat:{" "}
+          <span className="text-orange-500 font-bold">{sampleChat.titles}</span>
         </div>
       </div>
 
       <div className=" overflow-x-scroll h-[60%]">
-       
         <div className="space-y-4">
           {sampleChat.messages.map((msg, index) => (
             <div key={index} className="flex flex-col space-y-1">
-              <div className="bg-blue-500 p-2 rounded-lg self-end w-fit max-w-xs">
-                <p className="text-sm">{msg.que}</p>
+              <div className="flex items-end justify-end gap-2.5 m-4">
+                <div className="bg-orange-300 p-3 rounded-lg self-end w-fit max-w-xs shadow-md text-gray-800 font-medium">
+                  <span className="text-xs font-semibold text-gray-900">
+                    John Doe
+                  </span>
+                  <p className="text-sm mt-1">{msg.que}</p>
+                  <span className="text-[10px] text-gray-600 block text-right mt-1">
+                    Sent at: {new Date().toLocaleTimeString().slice(0, 5)}
+                  </span>
+                </div>
+                <User
+                  className="
+                  border-2 border-orange-300 rounded-full p-2 bg-orange-100 shadow-md
+                "
+                  size={32}
+                />
               </div>
-              <div className="bg-gray-700 p-2 rounded-lg self-start w-fit max-w-xs">
-                <p className="text-sm">{msg.ans}</p>
+              <div className="flex items-start gap-2.5 m-4">
+                <User
+                  className="
+                  border-2 border-gray-300 rounded-full p-2 bg-gray-100 shadow-md
+                "
+                  size={32}
+                />
+                <div className="bg-gray-300 p-3 rounded-lg self-start w-fit max-w-xs shadow-md text-gray-800 font-medium">
+                  <span className="text-xs font-semibold text-gray-900">
+                    Therapist Bot
+                  </span>
+                  <p className="text-sm mt-1">{msg.ans}</p>
+                  <span className="text-[10px] text-gray-600 block text-right mt-1">
+                    Sent at: {new Date().toLocaleTimeString().slice(0, 5)}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
