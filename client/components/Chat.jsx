@@ -81,7 +81,7 @@ const Chat = ({ display }) => {
         </div>
       </div>
 
-      <div className=" overflow-x-scroll h-[60%]">
+      <div className=" overflow-x-scroll h-[65%] md:h-[70%]">
         <div className="space-y-4">
           {sampleChat.messages.map((msg, index) => (
             <div key={index} className="flex flex-col space-y-1">
