@@ -18,12 +18,14 @@ function Landing() {
       <div className="bg-white px-6 sm:px-14">
         {/* Header Section */}
         <header className="flex justify-between items-center p-4 sm:p-6 bg-white">
-          <h1 className="text-xl sm:text-2xl font-bold text-orange-500 font-kreon">
-            MindBridge
-          </h1>
+          <a href="/">
+            <h1 className="text-xl sm:text-2xl font-bold text-orange-500 font-kreon">
+              MindBridge
+            </h1>
+          </a>
           <button
             onClick={() => navigate("/login")}
-            className="w-20 sm:w-32 px-3 py-1 sm:px-4 sm:py-2 bg-orange-500 text-white rounded-lg text-sm sm:text-base 
+            className="w-20 sm:w-32 cursor-pointer px-3 py-1 sm:px-4 sm:py-2 bg-orange-500 text-white rounded-lg text-sm sm:text-base 
             hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md"
             data-aos="fade-left"
           >
