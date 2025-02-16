@@ -15,9 +15,9 @@ function Landing() {
 
   return (
     <>
-      <div className="bg-white px-6 sm:px-14">
+      <div className="bg-white px-6 sm:px-14 min-h-screen flex flex-col">
         {/* Header Section */}
-        <header className="flex justify-between items-center p-4 sm:p-6 bg-white">
+        <header className="flex justify-between items-center py-3 px-4 sm:px-6 bg-white w-full">
           <a href="/">
             <h1 className="text-xl sm:text-2xl font-bold text-orange-500 font-kreon">
               MindBridge
@@ -34,7 +34,7 @@ function Landing() {
         </header>
 
         {/* Main Section */}
-        <div className="flex flex-col lg:flex-row items-center justify-between py-6 sm:py-12 bg-white">
+        <div className="flex flex-col lg:flex-row items-center justify-between py-8 bg-white">
           {/* Left Side - Text Content */}
           <div
             className="lg:w-1/2 text-center lg:text-left px-4 sm:px-8"
@@ -95,8 +95,8 @@ function Landing() {
           </div>
         </div>
       </div>
-      <div className="h-screen"></div> {/* Spacer to force scroll */}
-      <div data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+      {/* Ensuring FeaturesSection starts after Landing section */}
+      <div className="bg-[#F6F8FC] py-12">
         <FeaturesSection />
       </div>
     </>
