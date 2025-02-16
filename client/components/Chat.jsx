@@ -77,7 +77,7 @@ const Chat = ({ display }) => {
         </div>
         <div className="text-sm text-gray-600 font-medium mt-2 md:mt-0">
           Type of Chat:{" "}
-          <span className="text-orange-500 font-bold">{sampleChat.titles}</span>
+          <span className="text-orange-500 font-bold">{sampleChat.title}</span>
         </div>
       </div>
 
@@ -179,7 +179,7 @@ const Chat = ({ display }) => {
           )}
 
           {/* Chat Input */}
-          <div className="flex w-80 md:w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
+          <div className="flex ml-5 md:ml-0 w-80 md:w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
             <textarea
               className="flex-1 p-4 text-base md:text-lg outline-none resize-none"
               style={{ height: inputHeight, minHeight: "50px" }}
